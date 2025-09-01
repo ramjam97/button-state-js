@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Font Awesome 5 Free CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+</head>
+
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quia at esse hic assumenda sapiente, sint
+        repudiandae corporis inventore magni, nisi iusto! Odit est impedit voluptate ipsum provident, ipsa autem!</p>
+    <button class="btn">Click Me 1</button>
+    <button class="btn">Click Me 2</button>
+    <button class="btn" id="btn3">Click Me 3</button>
+</body>
+
+<script src="./button-state.js"></script>
+
+<script>
+
+    const btn = useBtnState('#btn3',
+        { loadingIcon: ` <i class="fas fa-spinner fa-pulse"></i>` }
+    );
+
+    console.log('btn:', btn);
+    console.log('states:', btn.getState());
+
+    console.log('target:', btn.getTarget());
+
+    document.getElementById('btn3').addEventListener('click', () => {
+
+        console.log('btn3 clicked');
+
+        btn.loading(true);
+
+        setTimeout(() => {
+            // loading(false);
+            btn.reset();
+        }, 1000);
+
+    });
+
+    btn.watchEffects((state) => {
+        console.table(state);
+    });
+
+</script>
+
+</html>
