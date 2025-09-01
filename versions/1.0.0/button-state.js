@@ -1,3 +1,9 @@
+/*
+github: https://github.com/ramjam97/button-state-js
+version: 1.0.0
+author: Ram Jam
+*/
+
 function useBtnState(btnSelector = null, options = {}) {
 
     const isValid = typeof btnSelector === "string" && btnSelector.trim().length > 0;
