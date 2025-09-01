@@ -14,23 +14,22 @@ function useBtnState(btnSelector = null, options = {}) {
     // prepare button references
     const targetBtnList = (isValid ? Array.from(document.querySelectorAll(btnSelector)) : []).map((btn) => {
 
-        const { innerHTML } = btn;
-
-        const loadingInnerHTML = options.loadingHtml || `${innerHTML}${options.loadingIcon || ""}`;
+        const defaultInnerHTML = btn.innerHTML;
+        const loadingInnerHTML = options.loadingHtml ?? (defaultInnerHTML + (options.loadingIcon || ""));
 
         return {
             element: btn,
-            defaultInnerHTML: innerHTML,
+            defaultInnerHTML,
             loadingInnerHTML
         };
-
     });
 
     // initial state
-    const initialState = {
+    const initialState = Object.freeze({
         isDisabled: Boolean(options?.state?.isDisabled || false),
         isLoading: Boolean(options?.state?.isLoading || false)
-    };
+    });
+
 
     // state
     let state = { ...initialState };
@@ -93,7 +92,10 @@ function useBtnState(btnSelector = null, options = {}) {
     const watch = (callback, executeOnInit = false) => addWatcher("always", callback, executeOnInit);
     const watchEffects = (callback, executeOnInit = false) => addWatcher("onChange", callback, executeOnInit);
 
-    const notify = (type) => watchers[type].forEach((cb) => cb(getState().current));
+    const notify = (type) => {
+        const snapshot = Object.freeze({ ...state });
+        watchers[type].forEach((cb) => cb(snapshot));
+    };
 
     // --- utilities ---
     const getState = () => ({ initial: { ...initialState }, current: { ...state } });
