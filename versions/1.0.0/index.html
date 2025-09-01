@@ -35,14 +35,8 @@
         console.log('btn1 clicked');
 
         btn1.loading(true);
-        btn2.disabled(true);
-        btn3.disabled(true);
 
-        setTimeout(() => {
-            btn1.loading(false);
-            btn2.reset();
-            btn3.reset();
-        }, 2_000);
+        setTimeout(() => btn1.loading(false), 2_000);
     });
 
     document.getElementById('btn3').addEventListener('click', () => {
@@ -64,7 +58,11 @@
     });
 
 
-    btn1.watch((state) => console.log('btn1 state:', state));
+    btn1.watch((state) => {
+        console.log('btn1 state:', state);
+        btn2.disabled(state.isLoading);
+        btn3.disabled(state.isLoading);
+    });
     btn2.watchEffects((state) => console.log('btn2 state:', state));
     btn3.watchEffects((state) => console.log('btn3 state:', state));
 
