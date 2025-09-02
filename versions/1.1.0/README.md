@@ -32,6 +32,7 @@ Just include the script in your project or import the function directly.
 ⚡ Usage Example
 
     const btnState = useBtnState('#myButton', {
+      loadingText: 'Loading...', // optional
       loadingHtml: 'Loading...', // optional
       loadingIcon: '<span class="spinner"></span>', // optional
       state: { isDisabled: false, isLoading: false } // optional
@@ -66,6 +67,7 @@ Initialization
 
 -   selector (string, required): CSS selector for target button(s).
 -   options (object, optional):
+    -   loadingText (string): Custom loading text.
     -   loadingHtml (string): Custom loading text/HTML.
     -   loadingIcon (string): Icon or HTML element appended to loading text.
     -   state (object): Initial state { isDisabled: false, isLoading: false }.
