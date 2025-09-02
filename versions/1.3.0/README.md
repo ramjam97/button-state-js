@@ -7,7 +7,7 @@ A lightweight utility for managing button states in vanilla JavaScript.
 📌 Project Info
 
 -   GitHub: button-state-js
--   Version: 1.2.1
+-   Version: 1.3.0
 -   Author: Ram Jam
 
 ------------------------------------------------------------------------
@@ -25,7 +25,7 @@ A lightweight utility for managing button states in vanilla JavaScript.
 
 Just include the script in your project or import the function directly.
 
-    <script src="https://cdn.jsdelivr.net/gh/ramjam97/button-state-js@master/versions/1.2.1/button-state.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ramjam97/button-state-js@master/versions/1.3.0/button-state.min.js"></script>
 
 ------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 /*
-github: https://github.com/ramjam97/button-state-js/blob/master/versions/1.2.1/button-state.min.js
-version: 1.2.1
+github: https://github.com/ramjam97/button-state-js/blob/master/versions/1.3.0/button-state.min.js
+version: 1.3.0
 author: Ram Jam
 */
 
