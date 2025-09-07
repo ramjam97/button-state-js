@@ -97,24 +97,63 @@ function useBtnState(btnSelector = null, options = {}) {
 
     // --- watchers ---
     function addWatcher(type, callback, executeOnInit) {
+
         if (typeof callback !== "function") {
             console.warn("Callback must be a function.");
             return;
         }
-        watchers[type].push(callback);
-        if (executeOnInit) callback(getState().current);
+
+        // Wrap the callback to handle cleanup
+        const watcher = {
+            callback,
+            cleanup: null,
+        };
+
+        watchers[type].push(watcher);
+
+        // Run immediately if requested
+        if (executeOnInit) {
+            const snapshot = Object.freeze({ ...state });
+            watcher.cleanup = safeRun(callback, snapshot);
+        }
+
+        // return unsubscribe function
+        return () => {
+            if (watcher.cleanup) {
+                safeRun(watcher.cleanup);
+            }
+            watchers[type] = watchers[type].filter((w) => w !== watcher);
+        };
+    }
+
+
+    function safeRun(cb, payload) {
+        try {
+            const result = payload ? cb(payload) : cb();
+            return typeof result === "function" ? result : null;
+        } catch (err) {
+            console.error("Error during executing callback:", err);
+            return null;
+        }
     }
 
     const watch = (callback, executeOnInit = false) => addWatcher("always", callback, executeOnInit);
     const watchEffects = (callback, executeOnInit = false) => addWatcher("onChange", callback, executeOnInit);
 
-    const notify = (type) => {
+    // --- helper ---
+    function notify(type) {
         const snapshot = Object.freeze({ ...state });
-        watchers[type].forEach((cb) => cb(snapshot));
+        watchers[type].forEach((watcher) => {
+            // cleanup first
+            if (watcher.cleanup) {
+                safeRun(watcher.cleanup);
+            }
+            // call fresh
+            watcher.cleanup = safeRun(watcher.callback, snapshot);
+        });
     };
 
-    // --- utilities ---
-
+    // --- helper ---
     function getButtonElements() {
 
         if (btnSelector instanceof HTMLElement) {
@@ -130,13 +169,8 @@ function useBtnState(btnSelector = null, options = {}) {
         return [];
     }
 
-    const getState = () => ({
-        initial: { ...initialState },
-        current: { ...state }
-    });
-
+    const getState = () => ({ initial: { ...initialState }, current: { ...state } });
     const getTarget = () => targetBtnList;
-
 
     // init
     renderUpdate();

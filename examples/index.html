@@ -29,6 +29,9 @@
     <button class="btn" id="btn2">Click Me 2</button>
     <button class="btn" id="btn3">Click Me 3</button>
     <a class="btn" id="btn4">Click Me 4</a>
+
+    <button class="btn" id="stopWatchingBtn">Stop watching btn1 & btn3</button>
+
 </body>
 
 
@@ -87,14 +90,25 @@
         setTimeout(() => loading(false), 2_000);
     });
 
-    btn1.watch((state) => {
+    const stopWatchBtn1 = btn1.watch((state) => {
         console.log('btn1 state:', state);
         btn2.disabled(state.isLoading);
         btn3.disabled(state.isLoading);
     });
-    btn2.watchEffects((state) => console.log('btn2 state:', state));
-    btn3.watchEffects((state) => console.log('btn3 state:', state));
 
+    btn2.watchEffects((state) => console.log('btn2 state:', state));
+
+    const stopWatchEffectBtn3 = btn3.watchEffects((state) => {
+
+        console.log('btn3 state changes:', state);
+
+        return () => console.log('btn3 cleanup', state.isLoading);
+    }, true);
+
+    document.getElementById('stopWatchingBtn').addEventListener('click', () => {
+        stopWatchBtn1();
+        stopWatchEffectBtn3();
+    });
 </script>
 
 </html>

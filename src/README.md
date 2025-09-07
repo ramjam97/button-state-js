@@ -1,31 +1,33 @@
 Button State JS
 
-A lightweight utility for managing button states in vanilla JavaScript.
+A lightweight vanilla JavaScript utility for managing button states (loading, disabled)
+with built-in DOM updates, watchers, and cleanup support.
 
 ------------------------------------------------------------------------
 
 📌 Project Info
 
--   GitHub: button-state-js
--   Version: 2.0.0
+-   GitHub: Button State JS
+-   Version: 2.1.0
 -   Author: Ram Jam
 
 ------------------------------------------------------------------------
 
 🚀 Features
 
--   Manage button states (loading, disabled) with ease.
--   Auto-update DOM (innerHTML and disabled state).
--   Watchers to track state updates and changes.
--   Simple reset functionality.
+- Manage button states (loading, disabled).
+- Auto-update DOM (innerHTML, disabled attribute, and classes).
+- Watchers with cleanup support.
+- Reset to initial state anytime.
+- Safe error handling in watchers.
 
 ------------------------------------------------------------------------
 
 📦 Installation
 
-Just include the script in your project or import the function directly.
+Include via CDN:
 
-    <script src="https://cdn.jsdelivr.net/gh/ramjam97/button-state-js@v2.0.0/dist/button-state.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ramjam97/button-state-js@v2.1.0/dist/button-state.min.js"></script>
 
 ------------------------------------------------------------------------
 
@@ -48,16 +50,24 @@ Just include the script in your project or import the function directly.
     // Reset to initial state
     btnState.reset();
 
-    // Watch state (always called)
-    btnState.watch((state) => {
+    // Watch every state update
+    const stopAlways = btnState.watch((state) => {
+      
       console.log('State updated:', state);
+
+      // return cleanup function (called before next run)
+      return () => console.log('Cleanup before next update');
+
     }, true);
 
     // Watch only when state changes
-    btnState.watchEffects((state) => {
+    const stopChange = btnState.watchEffects((state) => {
       console.log('State changed:', state);
     });
 
+    // Unsubscribe watchers manually
+    stopAlways();
+    stopChange();
 ------------------------------------------------------------------------
 
 🔑 API Reference
@@ -91,18 +101,33 @@ Actions
 
 ------------------------------------------------------------------------
 
-Watchers
+Watchers (with cleanup)
 
--   watch(callback, executeOnInit = false) → runs callback on every state set.
--   watchEffects(callback, executeOnInit = false) → runs callback only on state
-    changes.
+- watch(callback, executeOnInit = false)
+  → runs on every state update.
+  → callback receives state and may return a cleanup function.
+  → returns an unsubscribe function.
+
+- watchEffects(callback, executeOnInit = false)
+  → runs only when state changes.
+  → same cleanup and unsubscribe behavior as watch.
+
+Example:
+
+    const stop = btnState.watch((state) => {
+      console.log('Watching...', state);
+      return () => console.log('Cleanup before re-run');
+    });
+
+    stop(); // stops watching
 
 ------------------------------------------------------------------------
 
 ⚠️ Notes
 
--   If selector is invalid, a warning will be shown in the console.
--   partial passed to setState must be an object.
+- Invalid selector shows a console warning.
+- partial in setState must be an object.
+- Cleanup functions run before each callback re-run and on unsubscribe.
 
 ------------------------------------------------------------------------
 
