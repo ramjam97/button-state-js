@@ -1,0 +1,18 @@
+{
+  "name": "ButtonStateJs",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node build.js"
+  },
+  "keywords": [],
+  "author": "Ram Jam",
+  "license": "ISC",
+  "git": "https://github.com/ramjam97/button-state-js",
+  "description": "A lightweight utility for managing button states in vanilla JavaScript.",
+  "type": "module",
+  "devDependencies": {
+    "terser": "^5.44.0"
+  }
+}

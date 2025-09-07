@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Font Awesome 5 Free CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+    <!-- Button State -->
+    <script src="../dist/button-state.min.js"></script>
+    <style>
+        .disabled {
+            pointer-events: none;
+            background-color: red !important;
+        }
+
+        .loading {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Button State Example</h3>
+    <p>Click the buttons below and check the console.</p>
+    <button class="btn" id="btn1">Click Me 1</button>
+    <button class="btn" id="btn2">Click Me 2</button>
+    <button class="btn" id="btn3">Click Me 3</button>
+    <a class="btn" id="btn4">Click Me 4</a>
+</body>
+
+
+
+<script>
+
+    const btn1 = useBtnState('#btn1', { loadingHtml: `Loading...` });
+    const btn2 = useBtnState('#btn2', { loadingIcon: ` <i class="fas fa-spinner fa-pulse"></i>` });
+    const btn3 = useBtnState('#btn3', { loadingIcon: ` <i class="fas fa-spinner fa-pulse"></i>` });
+
+    console.log('btn1:', btn1);
+    console.log('btn2:', btn2);
+    console.log('btn3:', btn3);
+
+    document.getElementById('btn1').addEventListener('click', () => {
+
+        console.log('btn1 clicked');
+
+        btn1.loading(true);
+
+        setTimeout(() => btn1.loading(false), 2_000);
+    });
+
+    document.getElementById('btn3').addEventListener('click', () => {
+
+        console.log('btn3 clicked');
+
+        btn3.loading(true);
+
+        setTimeout(() => btn3.loading(false), 2_000);
+
+    });
+
+    document.getElementById('btn2').addEventListener('click', () => {
+        console.log('btn2 clicked');
+
+        btn2.loading(true);
+
+        setTimeout(() => btn2.loading(false), 2_000);
+    });
+
+    document.getElementById('btn4').addEventListener('click', (e) => {
+
+        const { loading } = useBtnState(e.currentTarget, {
+            loadingIcon: ` <i class="fas fa-spinner fa-pulse"></i>`,
+            classes: {
+                disabled: 'disabled',
+                loading: 'loading'
+            }
+        });
+
+        console.log('btn1 clicked');
+
+        loading();
+
+        setTimeout(() => loading(false), 2_000);
+    });
+
+    btn1.watch((state) => {
+        console.log('btn1 state:', state);
+        btn2.disabled(state.isLoading);
+        btn3.disabled(state.isLoading);
+    });
+    btn2.watchEffects((state) => console.log('btn2 state:', state));
+    btn3.watchEffects((state) => console.log('btn3 state:', state));
+
+</script>
+
+</html>
