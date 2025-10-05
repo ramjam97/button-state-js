@@ -7,10 +7,10 @@
     "build": "node build.js"
   },
   "keywords": [],
-  "author": "Your Name",
+  "author": "Ram Jam",
   "license": "ISC",
-  "git": "https://github.com/yourusername/your-repo",
-  "description": "Short description of your library",
+  "git": "https://github.com/ramjam97/button-state-js",
+  "description": "Vanilla Javascript library for button state management.",
   "type": "module",
   "devDependencies": {
     "terser": "^5.44.0"
