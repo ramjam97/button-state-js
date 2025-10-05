@@ -1,10 +1,10 @@
 /*!
  * ButtonStateJS v1.0.0
- * Description: Short description of your library
- * Author: Your Name
- * GitHub: https://github.com/yourusername/your-repo
+ * Description: Vanilla Javascript library for button state management.
+ * Author: Ram Jam
+ * GitHub: https://github.com/ramjam97/button-state-js
  * License: ISC
- * Build Date: 2025-10-05 18:00:29 (Asia/Manila)
+ * Build Date: 2025-10-05 18:05:43 (Asia/Manila)
 */
 function ButtonState(domSelectors = '', options = {}) {
 
