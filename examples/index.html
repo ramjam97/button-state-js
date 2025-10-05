@@ -19,16 +19,15 @@
         loading: {
             icon: '...'
             // html: (text) => `<span>${text}...</span>`
+        },
+        onChange: (state, dom) => {
+            console.log('onChange:', state, dom);
         }
     });
 
-
     function handleClick() {
         button.loading();
-
-        setTimeout(() => {
-            button.loading(false);
-        }, 2000);
+        setTimeout(() => button.loading(false), 2000);
     }
 </script>
 
