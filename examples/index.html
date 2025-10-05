@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <script src="../dist/index.js"></script>
+</head>
+
+<body>
+    <h4>Button State JS Demo</h4>
+    <button class="btn" onclick="handleClick()">Test</button>
+</body>
+
+<script>
+
+    const button = ButtonState('.btn', {
+        loading: {
+            icon: '...'
+            // html: (text) => `<span>${text}...</span>`
+        }
+    });
+
+
+    function handleClick() {
+        button.loading();
+
+        setTimeout(() => {
+            button.loading(false);
+        }, 2000);
+    }
+</script>
+
+</html>
