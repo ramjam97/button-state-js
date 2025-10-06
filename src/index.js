@@ -40,15 +40,11 @@ function ButtonState(domSelectors = '', options = {}) {
     }
 
     const api = {
-        dom,
-        target,
-        state,
-        setState,
+        dom, target,
+        state, setState,
         refresh: renderUpdate,
-        loading,
-        disabled,
-        show,
-        hide,
+        loading, disabled,
+        show, hide,
     }
 
     function arrGet(obj, path, defaultVal = null) {
@@ -81,26 +77,17 @@ function ButtonState(domSelectors = '', options = {}) {
             let loadingHtml = typeof config.loading.html === 'function' ?
                 config.loading.html(item.defaultHtml) : config.loading.html;
             if (loadingHtml === null) loadingHtml = item.defaultHtml;
+            if (config.loading.icon) loadingHtml = `${loadingHtml}${config.loading.icon}`;
 
-            if (config.loading.icon) {
-                loadingHtml = `${loadingHtml}${config.loading.icon}`;
-            }
-
-            element.disabled = state.disabled;
             element.innerHTML = state.loading ? loadingHtml : item.defaultHtml;
-
-            if (state.display) {
-                element.style.display = item.defaultDisplay === 'none' ? '' : item.defaultDisplay;
-            } else {
-                element.style.display = 'none';
-            }
+            element.disabled = state.disabled;
+            element.style.display = state.display ? (item.defaultDisplay === 'none' ? '' : item.defaultDisplay) : 'none';
 
             element.classList.toggle(config.loading.class, state.loading);
             element.classList.toggle(config.disabled.class, state.disabled);
             element.classList.toggle(config.display.show.class, state.display);
             element.classList.toggle(config.display.hide.class, !state.display);
         });
-
         if (isDirty && typeof config.onChange === 'function') config.onChange(state, dom);
     }
 
@@ -117,34 +104,26 @@ function ButtonState(domSelectors = '', options = {}) {
 
     function setState(val = {}) {
         if (!val || typeof val !== 'object') return api;
-
         const oldState = { ...state };
         Object.assign(state, val);
-
         const hasChange = !isEqual(oldState, state);
         renderUpdate(hasChange);
-
         return api;
     }
 
     // ---------- actions ----------
-
     function loading(isLoading = true) {
         const val = Boolean(isLoading);
         return setState({ loading: val, disabled: val });
     }
-
     function disabled(isDisabled = true) {
         return setState({ disabled: Boolean(isDisabled) });
     }
-
     function show(showing = true) {
         return setState({ display: Boolean(showing) });
     }
-
     function hide(hidden = true) {
         return setState({ display: !Boolean(hidden) });
     }
-
     return api;
 }
