@@ -10,7 +10,7 @@
   "author": "Ram Jam",
   "license": "ISC",
   "git": "https://github.com/ramjam97/button-state-js",
-  "description": "Vanilla Javascript library for button state management.",
+  "description": "A lightweight, dependency-free JavaScript utility for managing button UI states — loading, disabled, and visibility — with fully customizable behavior and class handling.",
   "type": "module",
   "devDependencies": {
     "terser": "^5.44.0"

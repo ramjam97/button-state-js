@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test</title>
-    <script src="../dist/index.js"></script>
+    <script src="../dist/index.min.js"></script>
 </head>
 
 <body>
     <h4>Button State JS Demo</h4>
-    <button class="btn" onclick="handleClick()">Test</button>
+
+    <button class="btn all-btn" onclick="handleClick()">Btn 1</button>
+    <button class="all-btn" id="btn2">Btn 2</button>
+    <button class="all-btn" id="allBtn">Btn All</button>
+
 </body>
 
 <script>
 
     const button = ButtonState('.btn', {
         loading: {
-            icon: '...'
-            // html: (text) => `<span>${text}...</span>`
+            html: (text) => `<span>${text}...</span>`
         },
         onChange: (state, dom) => {
             console.log('onChange:', state, dom);
@@ -29,6 +32,20 @@
         button.loading();
         setTimeout(() => button.loading(false), 2000);
     }
+
+    document.getElementById('btn2').addEventListener('click', (e) => {
+        const { loading } = ButtonState(e.target);
+        loading(true);
+        setTimeout(() => loading(false), 2000);
+    });
+
+
+    const buttons = ButtonState('.all-btn');
+
+    document.getElementById('allBtn').addEventListener('click', () => {
+        buttons.loading(true);
+        setTimeout(() => buttons.loading(false), 2000);
+    });
 </script>
 
 </html>

@@ -1,13 +1,12 @@
 /*!
  * ButtonStateJS v1.0.0
- * Description: Vanilla Javascript library for button state management.
+ * Description: A lightweight, dependency-free JavaScript utility for managing button UI states — loading, disabled, and visibility — with fully customizable behavior and class handling.
  * Author: Ram Jam
  * GitHub: https://github.com/ramjam97/button-state-js
  * License: ISC
- * Build Date: 2025-10-05 22:52:48 (Asia/Manila)
+ * Build Date: 2025-10-06 09:43:02 (Asia/Manila)
 */
 function ButtonState(domSelectors = '', options = {}) {
-
 
     const config = {
         state: {

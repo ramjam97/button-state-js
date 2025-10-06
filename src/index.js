@@ -1,6 +1,5 @@
 function ButtonState(domSelectors = '', options = {}) {
 
-
     const config = {
         state: {
             ...{ loading: false, disabled: false, display: true },
