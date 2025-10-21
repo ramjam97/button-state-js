@@ -1,3 +1,5 @@
+[![Hits](https://hits.sh/github.com/ramjam97/button-state-js.svg)](https://hits.sh/github.com/ramjam97/button-state-js/)
+
 # ButtonStateJS
 
 **Version:** 1.0.0  

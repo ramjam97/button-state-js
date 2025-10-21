@@ -4,7 +4,7 @@
  * Author: Ram Jam
  * GitHub: https://github.com/ramjam97/button-state-js
  * License: ISC
- * Build Date: 2025-10-06 14:07:06 (Asia/Manila)
+ * Build Date: 2025-10-21 10:04:27 (Asia/Manila)
 */
 function ButtonState(domSelectors = '', options = {}) {
 
